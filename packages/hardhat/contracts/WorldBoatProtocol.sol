@@ -72,12 +72,18 @@ contract WorldBoatProtocol {
 			console.log("tokenId = %d", tokenId);
 			ClimateActionStats memory stat = _worldBoatClimateActions
 				.getTokenStats(tokenId);
+
 			if (stat.projectId == 0 || stat.projectId == _projectId) {
 				// open to any projects, or project Id matchs
 				if (stat.category == _category) {
+					uint offset = _co2OffsetPlanned;
+					if (stat.co2OffsetPlanned <= _co2OffsetPlanned) {
+						offset = stat.co2OffsetPlanned;	
+						_projects[_projectId].co2OffsetPlanned = _co2OffsetPlanned - stat.co2OffsetPlanned;
+					}
 					_worldBoatClimateActions.projectFulfillment(
 						tokenId,
-						_co2OffsetPlanned,
+						offset,
 						_metadataProject
 					);
 				}

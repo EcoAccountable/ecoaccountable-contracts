@@ -38,5 +38,5 @@ sequenceDiagram
 
 reusing "WBToken" at 0x85B815f9B358d90C4338C216B9F346BE47F820fA
 deployer================0x78BA6B002adEf3973622b1632e4537C39c6c1797
-deploying "WorldBoatProtocol" (tx: 0xd928a3d622656a783466d6a065a123e5e71258a19c8d9a3c91d9915ca8d3d8a3)...: deployed at 0xE496D96A1b9F6C66702A4585B60d56C6540037F4 with 807027 gas
-deploying "WorldBoatClimateActions" (tx: 0xf5fff3c4f66e31249f640a4bfefc15c0f3407356c4dc86d0f56871d399fb1458)...: deployed at 0xe8b80E3664Bd8fD357f6Ed2B33e32e320762c648 with 2211196 gas
+deploying "WorldBoatProtocol" (tx: 0x552626ed0ffc767b69697de0db4ede11fc8501d1c7e82532a9cdba43c5dfca61)...: deployed at 0x6669B4Dc7C88Fd846743F4994aB6ff59FDc05a4A with 822136 gas
+deploying "WorldBoatClimateActions" (tx: 0x63ffd898d4b63bf136b774d9fd4566efd650e900a05dd2cb2c12ba62224180b3)...: deployed at 0x3Ddb04148Cc92a839426085eb94c87b8f8bD5cF9 with 2258070 gas

@@ -95,5 +95,33 @@ describe("WorldBoatProtocol", function () {
       expect(state.metadataProject).to.equal("tree plant project");
 
     });
+
+    it("Should automatch with trusted project owner", async function () {
+      const { owner, wbca, to, projectId, protocol, token, projectOwner } = await loadFixture(deployContractsFixture);
+      const uri = "";
+      const regionalCode = 0;
+      const category = 10;
+
+      await wbca
+        .connect(owner)
+        .safeMint(to.address, uri, 1000n, projectId, regionalCode, category, true, 1n);
+
+      await protocol
+        .connect(projectOwner)
+        .createProject(100000n, 10000n, projectId, regionalCode, category, "tree plant project");
+
+      const state = await wbca.getTokenStats(1n);
+      expect(state.projectId).to.equal(projectId);
+      expect(state.co2ActuallyOffset).to.equal(1000n);
+      expect(state.co2OffsetPlanned).to.equal(0n);
+      expect(state.metadataProject).to.equal("tree plant project");
+
+
+      const project = await protocol.getProject(projectId);
+      expect(project.projectId).to.equal(projectId);
+      expect(project.projectOwner).to.equal(projectOwner.address);
+      expect(project.co2OffsetPlanned).to.equal(100000-1000);
+      expect(project.metadataProject).to.equal("tree plant project");
+    });
   });
 });

@@ -88,6 +88,8 @@ contract WorldBoatClimateActions is
 			msg.sender == treasuryAddress,
 			"Unauthorized Access! Protocol only"
 		);
+		console.log("co2fulfill===== %d", _co2Fulfilled);
+		console.log("tokenstat offsetplanned===== %d", _tokenStats[_tokenId].co2OffsetPlanned);
 		require(
 			_co2Fulfilled <= _tokenStats[_tokenId].co2OffsetPlanned,
 			"Goal already reached!"

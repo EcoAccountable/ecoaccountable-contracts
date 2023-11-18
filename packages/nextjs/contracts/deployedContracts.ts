@@ -1465,7 +1465,7 @@ const deployedContracts = {
       },
     },
     WorldBoatClimateActions: {
-      address: "0xe8b80E3664Bd8fD357f6Ed2B33e32e320762c648",
+      address: "0x3Ddb04148Cc92a839426085eb94c87b8f8bD5cF9",
       abi: [
         {
           inputs: [
@@ -2126,7 +2126,7 @@ const deployedContracts = {
       },
     },
     WorldBoatProtocol: {
-      address: "0xE496D96A1b9F6C66702A4585B60d56C6540037F4",
+      address: "0x6669B4Dc7C88Fd846743F4994aB6ff59FDc05a4A",
       abi: [
         {
           inputs: [],
