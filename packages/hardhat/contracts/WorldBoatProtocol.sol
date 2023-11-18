@@ -1,7 +1,6 @@
 //SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import { IERC721Receiver } from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import { ERC721Enumerable } from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import { WorldBoatClimateActions, ClimateActionStats } from "./WorldBoatClimateActions.sol";
 
@@ -9,7 +8,7 @@ import "hardhat/console.sol";
 
 /*
  */
-contract Protocol is IERC721Receiver {
+contract WorldBoatProtocol {
 	struct CO2OffsetProject {
 		address projectOwner;
 		uint co2OffsetPlanned;
