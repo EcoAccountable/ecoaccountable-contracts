@@ -13,18 +13,17 @@ contract WorldBoatProtocol {
 		address projectOwner;
 		uint co2OffsetPlanned;
 		uint tokenAmountRequired;
-		uint co2ActuallyOffset;
 		uint projectRegisteredDateTimestamp;
 		uint projectId;
 		uint regionalCode;
 		uint category;
 		bool isProjectOpen;
-		bytes metadataProject;
+		string metadataProject;
 	}
 
 	address private _manager;
 
-	mapping(address => CO2OffsetProject) private _projects;
+	mapping(uint => CO2OffsetProject) private _projects;
 	mapping(address => bool) public _trustedProjects;
 
 	WorldBoatClimateActions private _worldBoatClimateActions;
@@ -42,17 +41,17 @@ contract WorldBoatProtocol {
 	function createProject(
 		uint _co2OffsetPlanned,
 		uint _tokenAmountRequired,
-		uint _co2ActuallyOffset,
 		uint _projectId,
 		uint _regionalCode,
 		uint _category,
-		bytes calldata _metadataProject
+		string calldata _metadataProject
 	) public {
-		_projects[msg.sender] = CO2OffsetProject(
+		require(_projects[_projectId].projectOwner == address(0), "Project already exists");
+
+		_projects[_projectId] = CO2OffsetProject(
 			msg.sender,
 			_co2OffsetPlanned,
 			_tokenAmountRequired,
-			_co2ActuallyOffset,
 			block.timestamp,
 			_projectId,
 			_regionalCode,
@@ -60,14 +59,17 @@ contract WorldBoatProtocol {
 			true,
 			_metadataProject
 		);
+		console.log("trusted = %s", _trustedProjects[msg.sender]);
+		console.log("currentTokenId = %s", _worldBoatClimateActions.currentTokenId());
 
 		if (!_trustedProjects[msg.sender]) return;
 
 		for (
-			uint tokenId = 1;
-			tokenId < _worldBoatClimateActions.currentTokenId();
+			uint tokenId = 1;		// 1 origin
+			tokenId <= _worldBoatClimateActions.currentTokenId();
 			tokenId++
 		) {
+			console.log("tokenId = %d", tokenId);
 			ClimateActionStats memory stat = _worldBoatClimateActions
 				.getTokenStats(tokenId);
 			if (stat.projectId == 0 || stat.projectId == _projectId) {
@@ -81,6 +83,19 @@ contract WorldBoatProtocol {
 				}
 			}
 		}
+	}
+
+	function closeProject(uint _projectId) public {
+		require(_projects[_projectId].projectOwner != address(0), "Project does not exist");
+		require(
+			msg.sender == _projects[_projectId].projectOwner,
+			"Only project owner can close the project"
+		);
+		_projects[_projectId].isProjectOpen = false;
+	}
+
+	function getProject(uint _projectId) public view returns (CO2OffsetProject memory){
+		return _projects[_projectId];
 	}
 
 	function addTrustedProject(address projectAddress) public {

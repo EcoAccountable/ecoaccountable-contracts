@@ -19,7 +19,7 @@ struct ClimateActionStats {
 	uint regionalCode;
 	uint category;
 	bool openFundingOrClosed;
-	bytes metadataProject;
+	string metadataProject;
 }
 
 contract WorldBoatClimateActions is
@@ -31,7 +31,7 @@ contract WorldBoatClimateActions is
 
 	address public treasuryAddress;
 
-	uint public currentTokenId = 1;
+	uint public currentTokenId = 0;
 
 	constructor(address _treasuryAddress) ERC721("WorldBoat", "Wo") Ownable() {
 		treasuryAddress = _treasuryAddress;
@@ -81,7 +81,7 @@ contract WorldBoatClimateActions is
 	function projectFulfillment(
 		uint _tokenId,
 		uint _co2Fulfilled,
-		bytes memory _metadataFullfillment
+		string memory _metadataFullfillment
 	) external {
 		require(
 			msg.sender == treasuryAddress,
