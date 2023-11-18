@@ -21,6 +21,16 @@ const deployWorldBoatClimateActionsContract: DeployFunction = async function (hr
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
+  const token = await deploy("WBToken", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [],
+    log: true,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
   console.log("deployer================" + deployer);
 
   const protocol = await deploy("WorldBoatProtocol", {
@@ -36,7 +46,7 @@ const deployWorldBoatClimateActionsContract: DeployFunction = async function (hr
   const wbca = await deploy("WorldBoatClimateActions", {
     from: deployer,
     // Contract constructor arguments
-    args: [protocol.address],
+    args: [protocol.address, token.address],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.

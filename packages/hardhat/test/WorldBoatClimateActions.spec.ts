@@ -8,19 +8,19 @@ describe("WorldBoatProtocol", function () {
     const deployer = await ethers.getNamedSigner("deployer");
     const [owner, to, projectOwner] = await ethers.getSigners();
 
+    const testTokenFactory = await ethers.getContractFactory("WBToken");
+    const token = (await testTokenFactory.deploy()) as WBToken;
+    await token.deployed();
+
     const protocolFactory = await ethers.getContractFactory("WorldBoatProtocol");
     const protocol = (await protocolFactory.deploy()) as WorldBoatProtocol;
     await protocol.deployed();
 
     const wbcaFactory = await ethers.getContractFactory("WorldBoatClimateActions");
-    const wbca = (await wbcaFactory.deploy(protocol.address)) as WorldBoatClimateActions;
+    const wbca = (await wbcaFactory.deploy(protocol.address, token.address)) as WorldBoatClimateActions;
     await wbca.deployed();
 
     await protocol.setup(wbca.address);
-
-    const testTokenFactory = await ethers.getContractFactory("WBToken");
-    const token = (await testTokenFactory.deploy()) as WBToken;
-    await token.deployed();
 
     const projectId = 100n;
     return {
@@ -43,7 +43,7 @@ describe("WorldBoatProtocol", function () {
       const category = 10;
       await wbca
         .connect(owner)
-        .safeMint(to.address, uri, 1n, projectId, regionalCode, category, true, token.address, 1n);
+        .safeMint(to.address, uri, 1n, projectId, regionalCode, category, true, 1n);
 
       const tokenId = await wbca.currentTokenId();
       expect(tokenId).to.equal(1n);
@@ -80,7 +80,7 @@ describe("WorldBoatProtocol", function () {
 
       await wbca
         .connect(owner)
-        .safeMint(to.address, uri, 1000n, projectId, regionalCode, category, true, token.address, 1n);
+        .safeMint(to.address, uri, 1000n, projectId, regionalCode, category, true, 1n);
 
       await protocol.connect(owner).addTrustedProject(projectOwner.address);
 

@@ -30,11 +30,13 @@ contract WorldBoatClimateActions is
 	mapping(uint256 => ClimateActionStats) private _tokenStats;
 
 	address public treasuryAddress;
+	address private erc20Token;
 
 	uint public currentTokenId = 0;
 
-	constructor(address _treasuryAddress) ERC721("WorldBoat", "Wo") Ownable() {
+	constructor(address _treasuryAddress, address _erc20Token) ERC721("WorldBoat", "Wo") Ownable() {
 		treasuryAddress = _treasuryAddress;
+		erc20Token = _erc20Token;
 	}
 
 	function safeMint(
@@ -45,9 +47,8 @@ contract WorldBoatClimateActions is
 		uint regionalCode,
 		uint category,
 		bool openFundingOrClosed,
-		address erc20Token,
 		uint tokenAmount
-	) public onlyOwner {
+	) public {
 		console.log("sender = ", msg.sender);
 		require(
 			IERC20(erc20Token).transferFrom(

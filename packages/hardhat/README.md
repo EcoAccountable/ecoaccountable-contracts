@@ -36,8 +36,8 @@ sequenceDiagram
 
 ```
 
-contracts in arbitrumSepolia:
-deployer = 0x78BA6B002adEf3973622b1632e4537C39c6c1797
-deploying "WorldBoatProtocol" (tx: 0xd128b04bed0387c622bbeb83ba8a7feb592cad88a78d4d467dd65ef4ac36bd48)...: deployed at 0x2753D07A5B040DF342721e33058942fAd9Bb3E3e with 806763 gas
-deploying "WorldBoatClimateActions" (tx: 0xbb82df44f018a30e89209367327a63557299991ac589a68371e9294e75e0a0b9)...: deployed at 0xfdd6076e296eF65E211A4c894FEfC52880e86935 with 2192662 gas
-deploying "WBToken" (tx: 0xc7513580820fc14065e550758301c6ca475575ac3ac73fa99f4de02b5ae0f58a)...: deployed at 0x85B815f9B358d90C4338C216B9F346BE47F820fA with 650902 gas
+reusing "WBToken" at 0x85B815f9B358d90C4338C216B9F346BE47F820fA
+deployer================0x78BA6B002adEf3973622b1632e4537C39c6c1797
+deploying "WorldBoatProtocol" (tx: 0xb11f0a40f851375367ba13b5b883ecd5b156c41e41b588069dafc7f1131346b6)...: deployed at 0x200f6D9ADA16e6FF2CB5C3064dABcdF8bCE1f4C6 with 806775 gas
+deploying "WorldBoatClimateActions" (tx: 0xb83c38bf1b0577a61f0ae9ab88f4a464b4e05643a40833ddcddad6074cd2585d)...: deployed at 0x720A320B98A543481b62a502E8F6bEA1967CF308 with 2211208 gas
+📝 Updated TypeScript contract definition file on ../nextjs/contracts/deployedContracts.ts
