@@ -62,7 +62,7 @@ contract WorldBoatProtocol {
 		console.log("trusted = %s", _trustedProjects[msg.sender]);
 		console.log("currentTokenId = %s", _worldBoatClimateActions.currentTokenId());
 
-		if (!_trustedProjects[msg.sender]) return;
+//		if (!_trustedProjects[msg.sender]) return;
 
 		for (
 			uint tokenId = 1;		// 1 origin
