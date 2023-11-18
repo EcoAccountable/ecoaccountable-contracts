@@ -9,29 +9,29 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 import "hardhat/console.sol";
 
+struct ClimateActionStats {
+	address owner;
+	uint co2OffsetPlanned;
+	uint tokenAmountPaid;
+	uint co2ActuallyOffset;
+	uint fundingDateTimestamp;
+	uint projectId;
+	uint regionalCode;
+	uint category;
+	bool openFundingOrClosed;
+	bytes metadataProject;
+}
+
 contract WorldBoatClimateActions is
 	ERC721Enumerable,
 	ERC721URIStorage,
 	Ownable
 {
-	struct ClimateActionStats {
-		address owner;
-		uint co2OffsetPlanned;
-		uint tokenAmountPaid;
-		uint co2ActuallyOffset;
-		uint fundingDateTimestamp;
-		uint projectId;
-		uint regionalCode;
-		uint category;
-		bool openFundingOrClosed;
-		bytes metadataProject;
-	}
-
 	mapping(uint256 => ClimateActionStats) private _tokenStats;
 
 	address public treasuryAddress;
 
-  	uint private _currentTokenId = 0;
+	uint public currentTokenId = 1;
 
 	constructor(address _treasuryAddress) ERC721("WorldBoat", "Wo") Ownable() {
 		treasuryAddress = _treasuryAddress;
@@ -48,7 +48,7 @@ contract WorldBoatClimateActions is
 		address erc20Token,
 		uint tokenAmount
 	) public onlyOwner {
-    console.log("sender = ", msg.sender);
+		console.log("sender = ", msg.sender);
 		require(
 			IERC20(erc20Token).transferFrom(
 				msg.sender,
@@ -58,9 +58,9 @@ contract WorldBoatClimateActions is
 			"Transfer failed"
 		);
 
-		_currentTokenId = _currentTokenId + 1;
-		_safeMint(to, _currentTokenId);
-		_setTokenURI(_currentTokenId, uri);
+		currentTokenId = currentTokenId + 1;
+		_safeMint(to, currentTokenId);
+		_setTokenURI(currentTokenId, uri);
 
 		ClimateActionStats memory stats = ClimateActionStats({
 			owner: to,
@@ -72,10 +72,10 @@ contract WorldBoatClimateActions is
 			regionalCode: regionalCode,
 			category: category,
 			openFundingOrClosed: openFundingOrClosed,
-      metadataProject: ""
+			metadataProject: ""
 		});
 
-		_tokenStats[_currentTokenId] = stats;
+		_tokenStats[currentTokenId] = stats;
 	}
 
 	function projectFulfillment(
@@ -97,9 +97,9 @@ contract WorldBoatClimateActions is
 	}
 
 	function safeMint(address to, ClimateActionStats memory stats) internal {
-		_currentTokenId = _currentTokenId + 1;
-		_safeMint(to, _currentTokenId);
-		_tokenStats[_currentTokenId] = stats;
+		currentTokenId = currentTokenId + 1;
+		_safeMint(to, currentTokenId);
+		_tokenStats[currentTokenId] = stats;
 	}
 
 	// The following functions are overrides required by Solidity.
@@ -109,17 +109,13 @@ contract WorldBoatClimateActions is
 		address to,
 		uint256 tokenId,
 		uint256 batchSize
-	) internal
-  override(ERC721, ERC721Enumerable)
-   {
+	) internal override(ERC721, ERC721Enumerable) {
 		super._beforeTokenTransfer(from, to, tokenId, batchSize);
 	}
 
 	function _burn(
 		uint256 tokenId
-	) internal
-  override(ERC721, ERC721URIStorage)
-   {
+	) internal override(ERC721, ERC721URIStorage) {
 		super._burn(tokenId);
 	}
 
@@ -131,12 +127,7 @@ contract WorldBoatClimateActions is
 
 	function supportsInterface(
 		bytes4 interfaceId
-	)
-		public
-		view
-    override(ERC721, ERC721Enumerable)
-		returns (bool)
-	{
+	) public view override(ERC721, ERC721Enumerable) returns (bool) {
 		return super.supportsInterface(interfaceId);
 	}
 

@@ -7,12 +7,17 @@ contract WBToken is ERC20 {
         _mint(msg.sender, 1000000000000000000000000000);
     }
 
-    function mint(address to, uint256 amount) public {
-        _mint(to, amount);
+    // testing
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) public override returns (bool) {
+        _transfer(from, to, amount);
+        return true;
     }
 
-    function approve(address spender, uint256 amount) public override returns (bool) {
-        _approve(msg.sender, spender, amount);
-        return true;
+    function mint(address to, uint256 amount) public {
+        _mint(to, amount);
     }
 }

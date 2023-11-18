@@ -30,7 +30,7 @@ describe("YourContract", function () {
   describe("Deployment", function () {
     it("Should deploy", async function () {
       const { deployer, wbca, owner, to, projectId, treasury, token } = await loadFixture(deployContractsFixture);
-      await token.connect(owner).approve(wbca.address, 100n);
+//      await token.connect(owner).approve(wbca.address, 100n);
       console.log("allowance === " + await token.allowance(owner.address, treasury.address));
       console.log("deployer================" + deployer.address);
       const uri = "";
