@@ -34,6 +34,15 @@ contract WorldBoatClimateActions is
 
 	uint public currentTokenId = 0;
 
+	event ProjectFulfillment(
+		uint tokenId
+	);
+
+	event ActionCreated(
+		uint tokenId,
+		ClimateActionStats stats
+	);
+
 	constructor(address _treasuryAddress, address _erc20Token) ERC721("WorldBoat", "Wo") Ownable() {
 		treasuryAddress = _treasuryAddress;
 		erc20Token = _erc20Token;
@@ -77,6 +86,8 @@ contract WorldBoatClimateActions is
 		});
 
 		_tokenStats[currentTokenId] = stats;
+
+		emit ActionCreated(currentTokenId,stats);
 	}
 
 	function projectFulfillment(
@@ -97,6 +108,8 @@ contract WorldBoatClimateActions is
 		_tokenStats[_tokenId].co2ActuallyOffset += _co2Fulfilled;
 		_tokenStats[_tokenId].co2OffsetPlanned -= _co2Fulfilled;
 		_tokenStats[_tokenId].metadataProject = _metadataFullfillment;
+
+		emit ProjectFulfillment(_tokenId);
 	}
 
 	function safeMint(address to, ClimateActionStats memory stats) internal {

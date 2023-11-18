@@ -1465,7 +1465,7 @@ const deployedContracts = {
       },
     },
     WorldBoatClimateActions: {
-      address: "0x3Ddb04148Cc92a839426085eb94c87b8f8bD5cF9",
+      address: "0x0F48d5A78e6B65E3A4f599712178D4E976F92354",
       abi: [
         {
           inputs: [
@@ -1482,6 +1482,77 @@ const deployedContracts = {
           ],
           stateMutability: "nonpayable",
           type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "owner",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "co2OffsetPlanned",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "tokenAmountPaid",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "co2ActuallyOffset",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "fundingDateTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "projectId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "regionalCode",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "category",
+                  type: "uint256",
+                },
+                {
+                  internalType: "bool",
+                  name: "openFundingOrClosed",
+                  type: "bool",
+                },
+                {
+                  internalType: "string",
+                  name: "metadataProject",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct ClimateActionStats",
+              name: "stats",
+              type: "tuple",
+            },
+          ],
+          name: "ActionCreated",
+          type: "event",
         },
         {
           anonymous: false,
@@ -1550,6 +1621,19 @@ const deployedContracts = {
             },
           ],
           name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "ProjectFulfillment",
           type: "event",
         },
         {
@@ -2126,12 +2210,72 @@ const deployedContracts = {
       },
     },
     WorldBoatProtocol: {
-      address: "0x6669B4Dc7C88Fd846743F4994aB6ff59FDc05a4A",
+      address: "0xcA7E1951571a3B61dF0Ce1C4c4e9f2a909E108C6",
       abi: [
         {
           inputs: [],
           stateMutability: "nonpayable",
           type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "projectOwner",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "co2OffsetPlanned",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "tokenAmountRequired",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "projectRegisteredDateTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "projectId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "regionalCode",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "category",
+                  type: "uint256",
+                },
+                {
+                  internalType: "bool",
+                  name: "isProjectOpen",
+                  type: "bool",
+                },
+                {
+                  internalType: "string",
+                  name: "metadataProject",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct WorldBoatProtocol.CO2OffsetProject",
+              name: "project",
+              type: "tuple",
+            },
+          ],
+          name: "ProjectCreated",
+          type: "event",
         },
         {
           inputs: [

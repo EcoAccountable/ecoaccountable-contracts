@@ -23,6 +23,10 @@ contract WorldBoatProtocol {
 
 	address private _manager;
 
+	event ProjectCreated(
+		CO2OffsetProject project
+	);
+
 	mapping(uint => CO2OffsetProject) private _projects;
 	mapping(address => bool) public _trustedProjects;
 
@@ -89,6 +93,8 @@ contract WorldBoatProtocol {
 				}
 			}
 		}
+
+		emit ProjectCreated(_projects[_projectId]);
 	}
 
 	function closeProject(uint _projectId) public {
